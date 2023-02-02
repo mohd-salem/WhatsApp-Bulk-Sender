@@ -21,7 +21,7 @@ msg = []
 image = 'inputs\\img.jpg'
 
 # get Name & Number 
-Num = [i for i in DictReader(open('contacts.csv', encoding = 'UTF-8'))]
+Num = [i for i in DictReader(open('//inputs//contacts.csv', encoding = 'UTF-8'))]
 
 with open("msg.txt",'r', encoding='UTF-8-sig') as txt :
     for line in txt :
@@ -136,7 +136,7 @@ def process():
 process()
 
 print("errors have been written in file error.txt")
-with open("error.txt", 'w') as errorFile :
+with open("//utilities//error.txt", 'w') as errorFile :
     for i in errorNum :
         errorFile.write(i[0]+','+str(i[1]))
 
