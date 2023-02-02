@@ -11,22 +11,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
-from emoji.unicode_codes import UNICODE_EMOJI
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
-
-
-
-#options = Options()
-#headless= False
 
 Num = []
 errorNum = []
 msg = []
 
-image = 'C:\\Users\\NoVa\\OneDrive\\Desktop\\py\\whatsapp-send\\img.jpg'
+image = 'inputs\\img.jpg'
 
-# إحضار الأسماء و الأرقام
+# get Name & Number 
 Num = [i for i in DictReader(open('contacts.csv', encoding = 'UTF-8'))]
 
 with open("msg.txt",'r', encoding='UTF-8-sig') as txt :
@@ -35,15 +29,15 @@ with open("msg.txt",'r', encoding='UTF-8-sig') as txt :
 
     print("Connecting ...")
 
+# To use Chrome Webdriver uncomment the following lines
+
 #chromeOptions = webdriver.ChromeOptions()
 
-prefs={'disk-cache-size': 4096 }
+#prefs={'disk-cache-size': 4096 }
 #chromeOptions.add_experimental_option("prefs", prefs)
-#profile = FirefoxProfile("C:\\Users\\NoVa\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles")
-#print(profile)
-# Link chromedriver
 #driver = webdriver.Chrome('chromedriver', options = chromeOptions)
 
+# using Gecko Webdriver because of emojis
 
 driver = webdriver.Firefox()
 #options.add_argument("--headless")
@@ -121,11 +115,9 @@ def process():
                 time.sleep(2)
                 
         if (not network) : continue
-        # إضافة الصورة
+        # add image
         img_add()
-
-        #إضافة الرسالة
-
+        # add msg text 
         text_add()
         delay=random.randint(10, 85)
         print(delay)
@@ -137,18 +129,18 @@ def process():
         print('✅')
 
         if(con != True) :
-            user = input("أرسل تم لتفعيل الإنتقال التلقائي")
-            if (user == "تم") :
+            user = input("send auto to run automaticlly")
+            if (user == "auto") :
                 con = True
 
 process()
 
-print("تم كتابة الأرقام التي حدث فيها خطأ في ملف error.txt")
+print("errors have been written in file error.txt")
 with open("error.txt", 'w') as errorFile :
     for i in errorNum :
         errorFile.write(i[0]+','+str(i[1]))
 
-print("تم إرسال "+str(sent)+" رسالة")
+print("I have sent "+str(sent)+" message")
 
 input("Press Enter to quit")
 driver.quit()
